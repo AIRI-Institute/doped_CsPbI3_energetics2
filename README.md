@@ -16,7 +16,7 @@ doi = {https://doi.org/10.1016/j.commatsci.2023.112672},
 url = {https://www.sciencedirect.com/science/article/pii/S0927025623006663},
 author = {Roman A. Eremin and Innokentiy S. Humonen and Alexey A. Kazakov and Vladimir D. Lazarev and Anatoly P. Pushkarev and Semen A. Budennyy}}
 ```
-![graphical abstract](figures/toc.png)
+![graphical abstract](figures/TOC.png)
 
 Dataset
 -----
@@ -31,7 +31,7 @@ For each combination of metal dopant (Cd and Zn) and material phase (black γ- a
 | Black                   | [CCS_black_Cd](data/CCS_black_Cd.pkl.gz)   | [CCS_black_Zn](data/CCS_black_Zn.pkl.gz)   |
 | Yellow                  | [CCS_yellow_Cd](data/CCS_yellow_Cd.pkl.gz) | [CCS_yellow_Zn](data/CCS_yellow_Zn.pkl.gz) |
 </div>
-Thus, each presented pandas dataframe contains crystal structure in CIF format, metainformation columns, DFT-calculated energies, subsample indicators and GNN predictions. Dataframe columns "Formula", "Atomic_numbers", "Cell", "Pos", "Relaxed_\*", "Formation_energy_pa" contain data for DFT-calculated structures only, namely, 545 and 1006 values for CCS_black_\* and CCS_yellow_\*, correspondingly. Missing values in mentioned columns are marked by NaN. More detailed description you can find in the table below.
+Thus, each presented pandas dataframe contains crystal structure in CIF format, metainformation columns, DFT-calculated energies, subsample indicators and GNN predictions. Dataframe columns "Formula", "Atomic_numbers", "Cell", "Pos", "Relaxed_*", "Formation_energy_pa" contain data for DFT-calculated structures only, namely, 545 and 1006 values for CCS_black_* and CCS_yellow_*, correspondingly. Missing values in mentioned columns are marked by NaN. More detailed description you can find in the table below.
 <div align="center">
 
 | Column tag                  | Content description                                                                                                   |
