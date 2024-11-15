@@ -1,8 +1,8 @@
 # Cd/Zn- and Br-doped CsPbI<sub>3</sub> Energetics: DFT-derived Properties and GNN-based Predictions
 
 Lead halide perovskites are well-known family of functional materials for optoelectronic applications. The γ-phase of CsPbI<sub>3</sub> retains favorable optoelectronic characteristics, such as direct bandgap and high charge-carrier mobility. However, any large-scale applications of CsPbI<sub>3</sub> face difficulties caused by its polymorphic transitions into the undesirable δ-CsPbI<sub>3</sub> phase possessing no useful properties. One of many methods for stabilization of the γ-phase is partial substitution of Pb<sup>2+</sup> by Cd<sup>2+</sup>/Zn<sup>2+</sup> and I<sup>-</sup> by Br<sup>-</sup>. Such chemical modifications lead to a dramatic increase in the complexity of the corresponding compositional/configurational space (CCS) from computational/predictive perspectives. Due to the size of such space, the application of density functional theory (DFT) calculations for thermodynamic properties assessment  is accompanied by modern data-driven solutions, e.g. those based on graph neural network (GNN) architectures.
-More details can be found in the [paper](https://doi.org/10.1016/j.commatsci.2023.112672).
-
+<!--More details can be found in the [paper](https://doi.org/10.1016/j.commatsci.2023.112672)-->.
+<!--
 If you are using this dataset in your research paper, please cite us as
 ```
 @article{EREMIN2024112672,
@@ -16,6 +16,7 @@ doi = {https://doi.org/10.1016/j.commatsci.2023.112672},
 url = {https://www.sciencedirect.com/science/article/pii/S0927025623006663},
 author = {Roman A. Eremin and Innokentiy S. Humonen and Alexey A. Kazakov and Vladimir D. Lazarev and Anatoly P. Pushkarev and Semen A. Budennyy}}
 ```
+-->
 ![graphical abstract](figures/TOC.png)
 
 Dataset
@@ -72,14 +73,6 @@ Thus, each presented pandas dataframe contains crystal structure in CIF format, 
 | PHS_model_fepa_prediction   | Structure formation energy per atom (in eV/atom) predicted by GNN-model trained on the PHS training subset            |
 | PLS_model_fepa_prediction   | Structure formation energy per atom (in eV/atom) predicted by GNN-model trained on the PLS training subset            |
 </div>
-
-<!--
-| **Sample** | **Size** |
-|:----------:|:--------:|
-|  train_val |    142   |
-|    test    |    60    |
-|  inference |   73760  |
--->
 
 Scripts
 -----
