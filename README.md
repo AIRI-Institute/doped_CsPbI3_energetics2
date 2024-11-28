@@ -1,6 +1,15 @@
 # Cd/Zn- and Br-doped CsPbI<sub>3</sub> Energetics: DFT-derived Properties and GNN-based Predictions
 
-Lead halide perovskites are well-known family of functional materials for optoelectronic applications. The γ-phase of CsPbI<sub>3</sub> retains favorable optoelectronic characteristics, such as direct bandgap and high charge-carrier mobility. However, any large-scale applications of CsPbI<sub>3</sub> face difficulties caused by its polymorphic transitions into the undesirable δ-CsPbI<sub>3</sub> phase possessing no useful properties. One of many methods for stabilization of the γ-phase is partial substitution of Pb<sup>2+</sup> by Cd<sup>2+</sup>/Zn<sup>2+</sup> and I<sup>-</sup> by Br<sup>-</sup>. Such chemical modifications lead to a dramatic increase in the complexity of the corresponding compositional/configurational space (CCS) from computational/predictive perspectives. Due to the size of such space, the application of density functional theory (DFT) calculations for thermodynamic properties assessment  is accompanied by modern data-driven solutions, e.g. those based on graph neural network (GNN) architectures.
+Lead halide perovskites are well-known family of functional materials for optoelectronic applications. 
+The γ-phase of CsPbI<sub>3</sub> retains favorable optoelectronic characteristics, such as direct bandgap and
+high charge-carrier mobility. However, any large-scale applications of CsPbI<sub>3</sub> face difficulties caused by
+its polymorphic transitions into the undesirable δ-CsPbI<sub>3</sub> phase possessing no useful properties. 
+One of many methods for stabilization of the γ-phase is partial substitution of Pb<sup>2+</sup> by
+Cd<sup>2+</sup>/Zn<sup>2+</sup> and I<sup>-</sup> by Br<sup>-</sup>. Such chemical modifications lead to a dramatic
+increase in the complexity of the corresponding compositional/configurational space (CCS) from computational/predictive
+perspectives. Due to the size of such space, the application of density functional theory (DFT) calculations for 
+thermodynamic properties assessment  is accompanied by modern data-driven solutions, e.g. those based on graph neural
+network (GNN) architectures.
 <!--More details can be found in the [paper](https://doi.org/10.1016/j.commatsci.2023.112672)-->.
 <!--
 If you are using this dataset in your research paper, please cite us as
@@ -21,8 +30,12 @@ author = {Roman A. Eremin and Innokentiy S. Humonen and Alexey A. Kazakov and Vl
 
 Dataset
 -----
-The dataset contains  Cd/Zn- and Br-doped CsPbI<sub>3</sub> systems in two polymorphic modifications and predictions of their formation energies made using GNN-model Allegro trained on the DFT derived properties.
-For each combination of metal dopant (Cd and Zn) and material phase (black γ- and yellow δ-CsPbI<sub>3</sub>), listed in the table below, we created distinct CCS.
+The dataset contains  Cd/Zn- and Br-doped CsPbI<sub>3</sub> systems in two polymorphic modifications and 
+predictions of their formation energies made using two GNN-models Allegro trained on the DFT derived properties.
+We considered limiting cases of the Allegro models fine-tuned on the PLS and PHS datasets due to monotonic increasing
+of the test RMSEs by increasing of the fraction of high-symmetry structures in training data.
+For each combination of metal dopant (Cd and Zn) and material phase (black γ- and yellow δ-CsPbI<sub>3</sub>), 
+listed in the table below, we created distinct CCS.
 
 
 <div align="center">
@@ -32,7 +45,10 @@ For each combination of metal dopant (Cd and Zn) and material phase (black γ- a
 | Black                   | [CCS_black_Cd](data/CCS_black_Cd.pkl.gz)   | [CCS_black_Zn](data/CCS_black_Zn.pkl.gz)   |
 | Yellow                  | [CCS_yellow_Cd](data/CCS_yellow_Cd.pkl.gz) | [CCS_yellow_Zn](data/CCS_yellow_Zn.pkl.gz) |
 </div>
-Thus, each presented pandas dataframe contains crystal structure in CIF format, metainformation columns, DFT-calculated energies, subsample indicators and GNN predictions. Dataframe columns "Formula", "Atomic_numbers", "Cell", "Pos", "Relaxed_*", "Formation_energy_pa" contain data for DFT-calculated structures only, namely, 545 and 1006 values for CCS_black_* and CCS_yellow_*, correspondingly. Missing values in mentioned columns are marked by NaN. More detailed description you can find in the table below.
+Thus, each presented pandas dataframe contains crystal structure in CIF format, metainformation columns, 
+DFT-calculated energies, subsample indicators and GNN predictions. Dataframe columns "Formula", "Atomic_numbers",
+"Cell", "Pos", "Relaxed_*", "Formation_energy_pa" contain data for DFT-calculated structures only, namely, 
+545 and 1006 values for CCS_black_* and CCS_yellow_*, correspondingly. Missing values in mentioned columns are marked by NaN. More detailed description you can find in the table below.
 <div align="center">
 
 | Column tag                  | Content description                                                                                                   |
@@ -76,7 +92,8 @@ Thus, each presented pandas dataframe contains crystal structure in CIF format, 
 
 Scripts
 -----
-The repository also contains a [Jupyter Notebook](data_processing.py) file with utils and visualisation scripts. You can calculate and visualise energy distributions, RMSEs, predictions, etc.
+The repository also contains a [data_processing.py](data_processing.py) file with visualization functions and 
+usage examples. You can visualize statistics on CCSs, energy distributions, group-subgroup relations.
 
 Model
 -----
