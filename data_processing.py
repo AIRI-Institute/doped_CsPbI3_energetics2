@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import pandas as pd
 import seaborn as sns
@@ -13,7 +14,6 @@ def plot_ccs_stats(ccs_df: pd.DataFrame) -> None:
     :param ccs_df: complete CCS. For example, CCS of Cd-substituted δ-CsPbI3 contained in data/CCS_yellow_Cd.pkl.gz.
     :return: None.
     """
-
     ccs_df = ccs_df[["Dopant_content", "Br_content", "Space_group_no"]]
     numbers_df = ccs_df.groupby(["Dopant_content", "Br_content", "Space_group_no"]).size().to_frame()
     numbers_df = numbers_df.rename(mapper={0: "Number_of_structures"}, axis=1).reset_index()
@@ -56,7 +56,6 @@ def plot_group_subgroup_graph(ccs_df: pd.DataFrame) -> None:
     :param ccs_df: complete CCS. For example, CCS of Cd-substituted δ-CsPbI3 contained in data/CCS_yellow_Cd.pkl.gz.
     :return: None.
     """
-
     with open("venv/Lib/site-packages/pymatgen/symmetry/symm_data.json", "r") as f:
         symm_data = json.load(f)
     symm_data_subg = symm_data["maximal_subgroups"]
@@ -96,7 +95,7 @@ def plot_group_subgroup_graph(ccs_df: pd.DataFrame) -> None:
     edges_straight = set(graph.edges) - edges_curved
 
     fig, ax = plt.subplots(figsize=(6, 7))
-    cmap = plt.cm.YlOrRd
+    cmap = "YlOrRd"
     nx.draw_networkx_nodes(graph, pos, node_color=[np.log(sg_info2[i]) for i in graph.nodes], node_size=1200,
                            edgecolors="black", linewidths=1, cmap=cmap, vmin=0,
                            vmax=np.log(max([i for i in sg_info2.values()])), ax=ax)
@@ -120,18 +119,79 @@ def plot_group_subgroup_graph(ccs_df: pd.DataFrame) -> None:
     plt.show()
 
 
-def plot_energy_distribution(ccs_df: pd.DataFrame) -> None:
-    pass
+def plot_energy_distribution(data_df: pd.DataFrame) -> None:
+    """
+    Plot the distributions of DFT-derived formation energies for PHS and PLS structures
+    within the training/validation and test datasets.
+    :param data_df: Slice of complete CCSs including DFT-calculated structures only.
+    :return: None.
+    """
+    fig, ax = plt.subplots(1, 2, figsize=(12, 6))
+    phs_tr_val = data_df.loc[data_df["PHS_train"] | data_df["PHS_val"], "Formation_energy_pa"]
+    pls_tr_val = data_df.loc[data_df["PLS_train"] | data_df["PLS_val"], "Formation_energy_pa"]
+    bins = np.arange(min(phs_tr_val.min(), pls_tr_val.min()), max(phs_tr_val.max(), pls_tr_val.max()) + 0.01, 0.01)
+    ax[0].hist([pls_tr_val, phs_tr_val],
+               bins=bins, label=["PLS structures", "PHS structures"], color=["blue", "orange"])
+    ax[0].set_title("Train/validation datasets", fontsize=12)
+    ax[0].set_xlabel("Formation energy, eV/atom", fontsize=12)
+    ax[0].set_ylabel("Number of unique structures", fontsize=12)
+    ax[0].yaxis.set_tick_params(labelsize=12)
+    ax[0].grid(linestyle="--", color="lightgray", which="both")
+    ax[0].set_axisbelow(True)
+    ax[0].legend()
+
+    pls_test = data_df.loc[data_df["PLS_test"], "Formation_energy_pa"]
+    phs_test = data_df.loc[data_df["PHS_test"], "Formation_energy_pa"]
+    ax[1].hist([pls_test, phs_test], bins=bins, label=["PLS structures", "PHS structures"], color=["blue", "orange"])
+    ax[1].set_title("Test datasets", fontsize=12)
+    ax[1].set_xlabel("Formation energy, eV/atom", fontsize=12)
+    ax[1].set_ylabel("Number of unique structures", fontsize=12)
+    ax[1].yaxis.set_tick_params(labelsize=12)
+    ax[1].grid(linestyle="--", color="lightgray", which="both")
+    ax[1].set_axisbelow(True)
+    ax[1].legend()
+    fig.tight_layout()
+    plt.show()
 
 
-def plot_weight_vs_group(ccs_df: pd.DataFrame) -> None:
-    pass
+def plot_weight_vs_group(ccs_black_cd_df: pd.DataFrame, ccs_yellow_cd_df: pd.DataFrame) -> None:
+    """
+    Plot the group-subgroup graph.
+    :param ccs_black_cd_df: complete CCS of Cd-substituted γ-CsPbI3.
+    :param ccs_yellow_cd_df: complete CCS of Cd-substituted δ-CsPbI3.
+    :return: None.
+    """
+    fig, ax = plt.subplots(1, 2, figsize=(12, 6))
+    ax[0].scatter(ccs_black_cd_df["Space_group_no"], ccs_black_cd_df["Weight"], color="black")
+    ax[0].set_title("Black γ-CsPbI\N{SUBSCRIPT THREE}", fontsize=12)
+    ax[0].set_xlabel("Space group number", fontsize=12)
+    ax[0].set_ylabel("Weight", fontsize=12)
+    ax[0].yaxis.set_tick_params(labelsize=12)
+    ax[0].grid(linestyle="--", color="lightgray", which="both")
+    ax[0].set_axisbelow(True)
+
+    ax[1].scatter(ccs_yellow_cd_df["Space_group_no"], ccs_yellow_cd_df["Weight"], color="orange")
+    ax[1].set_title("Yellow δ-CsPbI\N{SUBSCRIPT THREE}", fontsize=12)
+    ax[1].set_xlabel("Space group number", fontsize=12)
+    ax[1].set_ylabel("Weight", fontsize=12)
+    ax[1].yaxis.set_tick_params(labelsize=12)
+    ax[1].grid(linestyle="--", color="lightgray", which="both")
+    ax[1].set_axisbelow(True)
+    fig.tight_layout()
+    plt.show()
 
 
-def plot_inference(ccs_df: pd.DataFrame) -> None:
-    pass
+DATA_DIR = "data"
+ccs_yellow_cd_df = pd.read_pickle(os.path.join(DATA_DIR, "CCS_yellow_Cd.pkl.gz"))
+ccs_black_cd_df = pd.read_pickle(os.path.join(DATA_DIR, "CCS_black_Cd.pkl.gz"))
+plot_weight_vs_group(ccs_black_cd_df, ccs_yellow_cd_df)
+plot_ccs_stats(ccs_yellow_cd_df)
+plot_group_subgroup_graph(ccs_yellow_cd_df)
 
-
-data_df = pd.read_pickle("data/CCS_yellow_Cd.pkl.gz")
-plot_ccs_stats(data_df)
-plot_group_subgroup_graph(data_df)
+dft_df = []
+for filename in os.listdir(DATA_DIR):
+    temp_df = pd.read_pickle(os.path.join(DATA_DIR, filename))
+    temp_df = temp_df.loc[temp_df["Formation_energy_pa"].notna(), "Formation_energy_pa": "PLS_test"]
+    dft_df.append(temp_df)
+dft_df = pd.concat(dft_df, axis=0, ignore_index=True)
+plot_energy_distribution(dft_df)
