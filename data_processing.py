@@ -4,7 +4,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import networkx as nx
-from pymatgen.symmetry.groups import SpaceGroup
+from pymatgen.symmetry.groups import SpaceGroup, sg_symbol_from_int_number
 import json
 
 
@@ -33,7 +33,7 @@ def plot_ccs_stats(ccs_df: pd.DataFrame) -> None:
     for i, dopant_content in enumerate(dopant_contents):
         num = numbers_df.loc[(dopant_content, )]
         sns.heatmap(np.log(num), cmap=cmap, cbar=False, annot=num, vmin=0, vmax=log_max_number, linewidth=.1, fmt='g',
-                    xticklabels=[f"{symm_data_abbr.get(SpaceGroup.from_int_number(sg).symbol, SpaceGroup.from_int_number(sg).symbol)}\n({sg})" for sg in num.columns],
+                    xticklabels=[f"{symm_data_abbr.get(sg_symbol_from_int_number(sg), sg_symbol_from_int_number(sg))}\n({sg})" for sg in num.columns],
                     yticklabels=[str(round(x, 1)) for x in num.index],
                     ax=ax[i])
         ax[i].set_xlabel(None)

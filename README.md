@@ -10,12 +10,23 @@ increase in the complexity of the corresponding compositional/configurational sp
 perspectives. Due to the size of such space, the application of density functional theory (DFT) calculations for 
 thermodynamic properties assessment  is accompanied by modern data-driven solutions, e.g. those based on graph neural
 network (GNN) architectures.
-<!--More details can be found in the [paper](https://doi.org/10.1016/j.commatsci.2023.112672)-->.
-<!--
+<!--More details can be found in the [paper](https://doi.org/10.1016/j.commatsci.2023.112672)-->
 If you are using this dataset in your research paper, please cite us as
 ```
-@article{EREMIN2024112672,
-title = {Graph neural networks for predicting structural stability of Cd- and Zn-doped γ-CsPbI3},
+@article{none,
+      title={none}, 
+      author={none},
+      year={2025},
+      eprint={none},
+      archivePrefix={none},
+      primaryClass={none},
+      url={none}, 
+}
+```
+<!--
+```
+@article{none,
+title = {none},
 journal = {Computational Materials Science},
 volume = {232},
 pages = {112672},
